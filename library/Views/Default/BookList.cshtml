@@ -1,0 +1,41 @@
+﻿
+
+@{
+}
+@model List<EntityLayer.Concrete.Book>
+@using EntityLayer.Concrete
+
+<div class="container">
+    <table>
+        <tr>
+            <th></th>
+            <th>Book Name</th>
+            <th>Writer of Book</th>
+            <th>Image of Book</th>
+            <th>Book Inventory</th>
+            <th>Proceses</th>
+        </tr>
+         @foreach (var book in Model) {
+        <tr>
+           
+            <td></td>
+            <td>@book.BookName</td>
+            <td>@book.Author.AuthorFullName</td>
+            <td><img src="/img/@book.BookImgUrl" alt=""></td>
+           
+                @if (book.BookAvailabilityId == 1)
+                {
+                   // <td>  <a href="/BorrowingHistory/BorrowingHistory/@book.BookId" target="_blank" rel="" class="btn btn-success">Available</a> </td>
+                    <td>  <a asp-controller="Borrowing" asp-action="BorrowingPage" asp-route-id="@book.BookId" class="btn btn-success">Available</a> </td>
+
+               
+                }             
+                else
+                {
+                    <td>  <a asp-controller="BorrowingHistory" asp-action="BorrowingHistory" asp-route-id="@book.BookId" class="btn btn-danger">Not Available</a> </td>
+               }
+        </tr>
+         }     
+       
+    </table>
+</div>

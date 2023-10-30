@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Borrowing Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model library.Controllers.BorrowingController.YourCustomViewModel
+
+@using EntityLayer.Concrete
+
+@if (!ViewData.ModelState.IsValid)
+{
+
+    <script>
+
+        var alertMessage = '@ViewData.ModelState["selectedMemberId"]?.Errors[1].ErrorMessage';
+        var alertContainer = document.createElement("div");
+        alertContainer.style.position = "absolute";
+        alertContainer.style.buttom = "-50px";
+        alertContainer.style.right = "-80px";
+        alertContainer.style.transform = "translateX(-50%)";
+        alertContainer.style.padding = "20px";
+        alertContainer.style.background = "#f44336";
+        alertContainer.style.color = "white";
+        alertContainer.style.borderRadius = "10px";
+        alertContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+        alertContainer.style.zIndex = "2";
+        alertContainer.textContent = alertMessage;
+
+        document.body.appendChild(alertContainer);
+        setTimeout(function () {
+            document.body.removeChild(alertContainer);
+        }, 3000);
+
+    </script>
+    
+
+}
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md">
+            <div class="card">
+                <h2 class="card-title text-center text-info">Ödünç Al</h2>
+                <div class="card-body py-md">
+
+
+
+
+    <form method="post" asp-controller="Borrowing" asp-action="BorrowingPage">
+
+   
+    <div class="form-group">
+                  
+           
+            <label for="Book.BookName">Kitabın Adı:</label>
+
+            <input asp-for="SelectedBook.BookName" class="form-control" value="@Model.SelectedBook.BookName" readonly />
+            <input type="hidden" name="selectedBookId" asp-for="SelectedBook.BookId" value="@Model.SelectedBook.BookId" />
+
+    </div>
+        <div class="form-group">
+            <label for="Member">Kitabı Alan Kişi:</label>
+            <select name="selectedMemberId"  class="form-control">
+                <option value="">Alacak kişiyi seçiniz</option>
+                @foreach (var member in Model.ListMembers)
+                {
+                    <option value="@member.MemberId">@member.MemberFullName</option>
+                }
+
+            </select>
+            <label for="">Geri getirelecek tarih:</label>
+            <input type="date" name="duedate" class="form-control" value=""  />
+
+            
+            <input type="hidden" name="selectedBookAvailabilityId" asp-for="SelectedBook.BookAvailabilityId" value="2" />
+                        </div>
+   
+    <button type="submit" class="btn btn-primary">Kitabı Ödünç Al</button>
+</form>
+<div>
+        <a href="@Url.Action("CreateMember", "Member")"  class="btn btn-primary">Kayıt ol</a>
+</div>
+
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        var duedateInput = document.querySelector('[name="duedate"]');
+        var duedateValue = duedateInput.value;
+        var selectedDate = new Date(duedateValue);
+
+        var currentDate = new Date();
+        
+
+        if (selectedDate < currentDate) {
+           
+            var alertMessage = "Lütfen geçerli bir tarih seçin.(Bugünden daha erken bir tarih olamaz!";
+            var alertContainer = document.createElement("div");
+            alertContainer.style.position = "absolute";
+            alertContainer.style.buttom = "-50px";
+            alertContainer.style.right = "-80px";
+            alertContainer.style.transform = "translateX(-50%)";
+            alertContainer.style.padding = "20px";
+            alertContainer.style.background = "#f44336";
+            alertContainer.style.color = "white";
+            alertContainer.style.borderRadius = "10px";
+            alertContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+            alertContainer.style.zIndex = "2";
+            alertContainer.textContent = alertMessage;
+
+            document.body.appendChild(alertContainer);
+            setTimeout(function () {
+                document.body.removeChild(alertContainer);
+            }, 3000);
+            event.preventDefault(); // Eğer daha erken bir tarih seçerse formun postlanmasını engellesin
+        }
+
+    });
+</script>
+
+
+

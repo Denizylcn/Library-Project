@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Borrowing Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model EntityLayer.Concrete.Member
+@using EntityLayer.Concrete
+
+@if (!string.IsNullOrEmpty(ViewBag.AlertMessage))
+{
+    <script>
+
+        var alertMessage = '@ViewBag.AlertMessage';
+        var alertContainer = document.createElement("div");
+        alertContainer.style.position = "absolute";
+        alertContainer.style.buttom = "-50px";
+        alertContainer.style.right = "-80px";
+        alertContainer.style.transform = "translateX(-50%)";
+        alertContainer.style.padding = "20px";
+        alertContainer.style.background = "#f44336";
+        alertContainer.style.color = "white";
+        alertContainer.style.borderRadius = "10px";
+        alertContainer.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+        alertContainer.style.zIndex = "2";
+        alertContainer.textContent = alertMessage;
+
+        document.body.appendChild(alertContainer);
+        setTimeout(function () {
+            document.body.removeChild(alertContainer);
+        }, 3000);
+
+    </script>
+}
+
+
+<div class="container">
+  
+    <div class="row justify-content-center"> 
+        <div class="col-md">
+           <div class="card">
+              <h2 class="card-title text-center text-info">Kayıt Ol</h2>
+                 <div class="card-body py-md">
+
+                    <form method="post" asp-controller="Member" asp-action="CreateMember">
+    <div>
+        <label asp-for="MemberFullName" >Ad ve Soyad:</label>
+        <input asp-for="MemberFullName" class="form-control" />
+      
+    </div>
+
+    <div>
+        <label asp-for="MemberPhone">Telefon:</label>
+        <input asp-for="MemberPhone" class="form-control" />
+     
+    </div>
+
+    <div>
+        <label asp-for="MemberEmailAddress">E-posta:</label>
+        <input asp-for="MemberEmailAddress" class="form-control" />
+       
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydol</button>
+</form>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+

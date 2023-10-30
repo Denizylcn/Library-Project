@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model EntityLayer.Concrete.Book
+@using EntityLayer.Concrete
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="BookName"></label>
+        <input asp-for="BookName" class="form-control" />
+        <span asp-validation-for="BookName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Author.AuthorFullName">Yazar Adı</label>
+        <input asp-for="Author.AuthorFullName" class="form-control" />
+     
+    </div>
+    <div class="form-group">
+        <label asp-for="BookPicture"></label>
+        <input asp-for="BookPicture" type="file" class="form-control" />
+        <span asp-validation-for="BookPicture" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "BorrowingHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EntityLayer.Concrete.BorrowingHistory
+
+@using EntityLayer.Concrete
+
+<div class="container">
+    <table>
+     
+
+
+
+
+        <div class="container">
+           
+            <div class="book-details">
+                <div class="book-image">
+                <img src="/img/@Model.Book.BookImgUrl" alt="">
+                </div>
+                <div class="book-description">
+                <h4>@Model.Book.BookName</h4>
+                <p>Writer of Book: @Model.Book.Author.AuthorFullName</p>
+               
+                <p>Name of Borrowing: @Model.Member.MemberFullName</p>
+                <p>Due Date: @Model.DueDate</p>
+                </div>
+            </div>
+            <a asp-action="BookList" class="btn btn-primary">Back to Book List</a>
+        </div>
+
+    </table>
+</div>
+
