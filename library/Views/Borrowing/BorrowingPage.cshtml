@@ -98,8 +98,9 @@
         var currentDate = new Date();
         
 
-        if (selectedDate < currentDate) {
-           
+   
+        if (!duedateValue || duedateValue === "0001-01-01" || selectedDate < currentDate) {
+
             var alertMessage = "Lütfen geçerli bir tarih seçin.(Bugünden daha erken bir tarih olamaz!";
             var alertContainer = document.createElement("div");
             alertContainer.style.position = "absolute";
@@ -118,10 +119,15 @@
             setTimeout(function () {
                 document.body.removeChild(alertContainer);
             }, 3000);
-            event.preventDefault(); // Eğer daha erken bir tarih seçerse formun postlanmasını engellesin
-        }
+            event.preventDefault(); // Tarih seçilmediyse veya varsayılan tarih seçildiyse formun gönderilmesini engelle
 
-    });
+
+        } else {
+            var selectedDate = new Date(duedateValue);
+            var currentDate = new Date();
+        }
+        });
+
 </script>
 
 
